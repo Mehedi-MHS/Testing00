@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cookie full example 00 by me</title>
+<meta name="viewport"content="width=device-width, initial-scale=1">
+<style type="text/css">
+body{text-align: center;}
+p#specific_result{color:green;border:1px dotted silver;}
+p#all_result{color:red;border:1px dotted grey;}
+input{border: 1px solid grey;border-radius: 7px;text-align: center;padding:7px;box-shadow:inset 0px 0px 10px silver;}
+</style>
+</head>
+<body>
+<h1>Cookie all in one example by me00</h1><a href="http://localhost:8080/Javascript%20cookie00/Cookie%20allInOneExample%20by%20me00.html" >Open in localhost</a><hr>
+<input type="text"id="name"placeholder="Enter your name"><br>
+<button onclick="Addname()">+Add name</button>
+<button onclick="Deletename()">-Remove name</button>
+<button onclick="Updatename()">±Update name</button>
+<br><p id="specific_result">specific...</p><br>
+<p id="all_result">all...</p>
+
+<script type="text/javascript">
+
+//1st creating custom functions
+   //cookie adding function
+function addCookie(cookieName,cookieValue){
+var name=cookieName+"="+cookieValue+";";
+var time=new Date();
+    time.setDate(time.getDate()+1);//cookie will expire 1 day later
+    time.toUTCString();
+document.cookie=name+"expires="+time+";path=/;";
+}
+  //cookie updating function(same as adding cookie.old cookie will be overwritten)
+function updateCookie(cookieName,cookieValue){
+   var name=cookieName+"="+cookieValue+";";
+   var time=new Date();
+       time.setDate(time.getDate()+1);
+       time.toUTCString();
+   document. cookie=name+"expires="+time+";path=/";
+}
+
+  //cookie deleting function(same as add cookie.just left cookievalue blank and set already expired date)
+function deleteCookie(cookieName){
+   var time=new Date();
+       time.setDate(time.getDate()-1);
+       time.toUTCString();
+   document. cookie=cookieName+"=;expires="+time+";path=/;";
+}
+
+  //function to get specific cookie 
+function getSpecificCookie(cookieName){
+   var specific="";
+   var arr=document. cookie.split(";");
+   var array_length=arr.length;//Added here (not in loop) to increase program execution speed.
+   for(var i=0;i<array_length;i++){
+      var key=arr[i].split("=")[0];
+      var value=arr[i].split("=")[1];
+      if(key.trim()==cookieName){//trim is used to remove whitespace. as whitespace can terminate search result.
+         specific=value;
+      }  
+   }
+   return specific;
+}
+
+///////////Custom functions ended .Now starting button onclick functions
+var spec_result=document. getElementById("specific_result");
+var all_result=document. getElementById("all_result");
+var cookie_name="username";
+function Addname(){
+   var cookie_value=document.getElementById("name").value;
+   addCookie(cookie_name,cookie_value);//called custom function
+   var specific_value=getSpecificCookie(cookie_name);
+   spec_result. innerHTML=specific_value;
+   all_result. innerHTML=document.cookie;
+}
+
+function Deletename(){
+    deleteCookie(cookie_name);
+    var specific_value=getSpecificCookie(cookie_name);
+    spec_result. innerHTML=specific_value;
+    all_result. innerHTML=document.cookie;
+}
+
+function Updatename(){
+   var cookie_value=document. getElementById("name").value;
+   updateCookie(cookie_name,cookie_value);
+   var specific_value=getSpecificCookie(cookie_name);
+   spec_result. innerHTML=specific_value;
+   all_result. innerHTML=document. cookie;
+}
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
