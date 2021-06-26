@@ -1,0 +1,2 @@
+<h1 style="color:green;">Hello I am from file.txt</h1>
+<p style="color:purple;">Just fun bro</p>
